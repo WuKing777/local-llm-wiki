@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Source Card Front Matter",
+  "type": "object",
+  "required": [
+    "source_id",
+    "title",
+    "raw_path",
+    "sha256",
+    "imported_at",
+    "kind"
+  ],
+  "properties": {
+    "source_id": {
+      "type": "string",
+      "pattern": "^src-[0-9a-f]{12}$"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "raw_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "imported_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "kind": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "propertyNames": {
+    "not": {
+      "pattern": "api[_-]?key|access[_-]?token|refresh[_-]?token|password|passwd|secret|credential|authorization|bearer|private[_-]?key|session[_-]?key"
+    }
+  },
+  "additionalProperties": true
+}

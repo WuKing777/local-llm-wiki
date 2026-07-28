@@ -1,0 +1,93 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Knowledge Base Manifest",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "created_at",
+    "engine_name",
+    "engine_version",
+    "profile_kind",
+    "required_source_fields",
+    "review_status_values",
+    "contracts",
+    "write_lock_integration"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "created_at": {
+      "type": "string",
+      "minLength": 1
+    },
+    "engine_name": {
+      "type": "string",
+      "const": "local-llm-wiki"
+    },
+    "engine_version": {
+      "type": "string",
+      "const": "0.1.0"
+    },
+    "profile_kind": {
+      "type": "string",
+      "const": "personal_exobrain"
+    },
+    "required_source_fields": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "source_id" },
+        { "const": "title" },
+        { "const": "raw_path" },
+        { "const": "sha256" },
+        { "const": "imported_at" },
+        { "const": "kind" }
+      ],
+      "minItems": 6,
+      "maxItems": 6
+    },
+    "review_status_values": {
+      "type": "array",
+      "prefixItems": [
+        { "const": "reviewed" },
+        { "const": "verified" },
+        { "const": "pass" },
+        { "const": "needs_reingest" },
+        { "const": "rejected" }
+      ],
+      "minItems": 5,
+      "maxItems": 5
+    },
+    "contracts": {
+      "type": "object",
+      "required": [
+        "kb_manifest",
+        "source_card",
+        "wiki_front_matter",
+        "backup_manifest",
+        "profile_registry",
+        "doctor_report",
+        "retrieval_benchmark"
+      ],
+      "additionalProperties": { "type": "string" }
+    },
+    "write_lock_integration": {
+      "type": "object",
+      "required": [
+        "required_task",
+        "status",
+        "schema_check_write_scope",
+        "enforced"
+      ],
+      "properties": {
+        "required_task": { "type": "string" },
+        "status": { "const": "required_not_integrated" },
+        "schema_check_write_scope": { "const": "meta/kb-manifest.json" },
+        "enforced": { "const": false }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

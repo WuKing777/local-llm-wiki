@@ -1,0 +1,9 @@
+# Synthetic demo runtime exclusions
+meta/.kb-write.lock
+*.tmp
+meta/audit/
+meta/cache/
+meta/runtime/
+db/*.sqlite3
+db/*.sqlite3-*
+*.log

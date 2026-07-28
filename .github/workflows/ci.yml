@@ -1,0 +1,96 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  offline-local:
+    runs-on: windows-latest
+    env:
+      KB_LLM_BASE_URL: ""
+      KB_LLM_MODEL: ""
+      KB_LLM_API_KEY: ""
+      KB_EMBEDDING_BASE_URL: ""
+      KB_EMBEDDING_MODEL: ""
+      KB_EMBEDDING_API_KEY: ""
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install package
+        shell: pwsh
+        run: |
+          python -B -m pip install --upgrade pip
+          python -B -m pip install -e .
+
+      - name: Run unit tests
+        shell: pwsh
+        run: python -B -m unittest discover -s tests -v
+
+      - name: Public export boundary smoke
+        shell: pwsh
+        run: python -B -m unittest tests.test_public_export -v
+
+      - name: CLI help smoke
+        shell: pwsh
+        run: |
+          python -B -m kb --help
+          kb --help
+
+      - name: Synthetic demo smoke
+        shell: pwsh
+        run: |
+          $providerNames = @(
+            "KB_LLM_BASE_URL",
+            "KB_LLM_MODEL",
+            "KB_LLM_API_KEY",
+            "KB_EMBEDDING_BASE_URL",
+            "KB_EMBEDDING_MODEL",
+            "KB_EMBEDDING_API_KEY"
+          )
+          foreach ($name in $providerNames) {
+            Remove-Item -LiteralPath "Env:$name" -ErrorAction SilentlyContinue
+          }
+
+          $doctorJson = python -B -m kb doctor --root "examples/demo-root" --json
+          $doctorCode = $LASTEXITCODE
+          if (@(0, 1) -notcontains $doctorCode) {
+            exit $doctorCode
+          }
+          $doctorJson | ConvertFrom-Json | Out-Null
+
+          $consoleJson = python -B -m kb product-console --root "examples/demo-root" --json
+          if ($LASTEXITCODE -ne 0) {
+            exit $LASTEXITCODE
+          }
+          $consoleJson | ConvertFrom-Json | Out-Null
+
+      - name: Productization acceptance smoke
+        shell: pwsh
+        run: |
+          $providerNames = @(
+            "KB_LLM_BASE_URL",
+            "KB_LLM_MODEL",
+            "KB_LLM_API_KEY",
+            "KB_EMBEDDING_BASE_URL",
+            "KB_EMBEDDING_MODEL",
+            "KB_EMBEDDING_API_KEY"
+          )
+          foreach ($name in $providerNames) {
+            Remove-Item -LiteralPath "Env:$name" -ErrorAction SilentlyContinue
+          }
+
+          $root = Join-Path $env:RUNNER_TEMP "kb-productization-root"
+          $report = Join-Path $env:RUNNER_TEMP "kb-productization-acceptance.jsonl"
+          Remove-Item -LiteralPath $root -Recurse -Force -ErrorAction SilentlyContinue
+          pwsh -NoProfile -ExecutionPolicy Bypass -File "tools/run-productization-acceptance.ps1" -Root $root -ReportPath $report

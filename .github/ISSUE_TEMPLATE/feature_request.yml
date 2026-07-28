@@ -1,0 +1,44 @@
+name: Feature request
+description: Propose a local/offline improvement without private data.
+title: "[Feature]: "
+labels:
+  - enhancement
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets. Do not include API keys. Do not include private source text. Do not include raw chunks. Do not include prompts. Do not include full provider responses. Do not include concrete private paths. Do not include real vault artifacts. Do not include private Git history.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the local/offline workflow problem using non-sensitive details.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: Describe the requested behavior. Keep examples synthetic.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      description: Choose the closest area.
+      options:
+        - Documentation
+        - CLI
+        - Synthetic demo
+        - Local web console
+        - Tests
+    validations:
+      required: true
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety notes
+      description: Note any privacy, provider, or evidence-gate concerns without sensitive data.
+    validations:
+      required: false

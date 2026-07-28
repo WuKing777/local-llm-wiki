@@ -1,0 +1,37 @@
+{
+  "contracts": {
+    "backup_manifest": "kb/schemas/backup-manifest.schema.json",
+    "doctor_report": "kb/schemas/doctor-report.schema.json",
+    "kb_manifest": "kb/schemas/kb-manifest.schema.json",
+    "profile_registry": "kb/schemas/profile-registry.schema.json",
+    "retrieval_benchmark": "kb/schemas/retrieval-benchmark.schema.json",
+    "source_card": "kb/schemas/source-card.schema.json",
+    "wiki_front_matter": "kb/schemas/wiki-front-matter.schema.json"
+  },
+  "created_at": "2026-07-07T00:00:00+00:00",
+  "engine_name": "local-llm-wiki",
+  "engine_version": "0.1.0",
+  "profile_kind": "personal_exobrain",
+  "required_source_fields": [
+    "source_id",
+    "title",
+    "raw_path",
+    "sha256",
+    "imported_at",
+    "kind"
+  ],
+  "review_status_values": [
+    "reviewed",
+    "verified",
+    "pass",
+    "needs_reingest",
+    "rejected"
+  ],
+  "schema_version": 1,
+  "write_lock_integration": {
+    "enforced": false,
+    "required_task": "Productization Hardening Task 4",
+    "schema_check_write_scope": "meta/kb-manifest.json",
+    "status": "required_not_integrated"
+  }
+}

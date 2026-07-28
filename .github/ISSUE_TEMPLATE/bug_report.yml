@@ -1,0 +1,55 @@
+name: Bug report
+description: Report a local/offline issue with sanitized reproduction data.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include secrets. Do not include API keys. Do not include private source text. Do not include raw chunks. Do not include prompts. Do not include full provider responses. Do not include concrete private paths. Do not include real vault artifacts. Do not include private Git history.
+  - type: input
+    id: version
+    attributes:
+      label: Snapshot or commit label
+      description: Use a public snapshot label or short commit identifier only.
+      placeholder: "public-snapshot or short-id"
+    validations:
+      required: false
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, shell, and Python version.
+      placeholder: "Windows, PowerShell, Python 3.11"
+    validations:
+      required: true
+  - type: textarea
+    id: command
+    attributes:
+      label: Command
+      description: Paste the sanitized command shape with placeholders such as "<root>".
+      placeholder: "python -B -m kb doctor --root \"<root>\""
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      description: What did you expect to happen?
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      description: What happened? Use sanitized logs only.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: Prefer examples/demo-root or synthetic files. Do not include private material.
+    validations:
+      required: false
