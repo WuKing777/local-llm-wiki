@@ -103,7 +103,7 @@ python -B -m kb product-console --root "examples/demo-root" --json
 python -B -m kb web-console --root "examples/demo-root" --port 0 --no-open
 ```
 
-运行完整的首次体验故事：
+使用 `tools/run-demo.ps1` 运行完整的首次体验故事：
 
 ```powershell
 .\tools\run-demo.ps1

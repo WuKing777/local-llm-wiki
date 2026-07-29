@@ -103,7 +103,7 @@ python -B -m kb product-console --root "examples/demo-root" --json
 python -B -m kb web-console --root "examples/demo-root" --port 0 --no-open
 ```
 
-Run the expanded first-run story:
+Run the expanded first-run story with `tools/run-demo.ps1`:
 
 ```powershell
 .\tools\run-demo.ps1
