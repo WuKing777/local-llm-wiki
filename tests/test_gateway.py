@@ -312,6 +312,34 @@ class GatewayTests(unittest.TestCase):
             finally:
                 default_server.shutdown()
 
+    def test_http_gateway_delivers_auth_rejection_after_large_post_body(self):
+        from kb.gateway import start_local_http_gateway
+
+        with tempfile.TemporaryDirectory() as tmpdir:
+            root, _source_id = create_root_with_source(Path(tmpdir))
+            token = secrets.token_urlsafe(24)
+            wrong_token = secrets.token_urlsafe(24)
+            server = start_local_http_gateway(
+                root,
+                host="127.0.0.1",
+                port=0,
+                capability_token=token,
+            )
+            try:
+                status, _headers, body = post_json(
+                    server.port,
+                    wrong_token,
+                    {
+                        "operation": "health",
+                        "payload": {"padding": "x" * (16 * 1024 * 1024)},
+                    },
+                )
+            finally:
+                server.shutdown()
+
+            self.assertEqual(401, status)
+            self.assertEqual("capability_token_invalid", body["classification"])
+
     def test_publish_route_uses_existing_publish_validation_and_source_review_blocks(self):
         from kb.gateway import PolicyGateway
 
