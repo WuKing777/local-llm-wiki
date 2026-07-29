@@ -454,6 +454,17 @@ def start_local_http_gateway(
         def log_message(self, _format: str, *_args: object) -> None:
             return
 
+        def _drain_request_body(self) -> None:
+            try:
+                remaining = max(0, int(self.headers.get("Content-Length", "0")))
+            except (TypeError, ValueError):
+                return
+            while remaining:
+                chunk = self.rfile.read(min(remaining, 64 * 1024))
+                if not chunk:
+                    return
+                remaining -= len(chunk)
+
         def _authorize(self) -> tuple[bool, int, dict[str, object], str | None]:
             origin = self.headers.get("Origin")
             if origin and origin not in origins:
@@ -549,6 +560,7 @@ def start_local_http_gateway(
         def do_POST(self) -> None:
             authorized, status, body, origin = self._authorize()
             if not authorized:
+                self._drain_request_body()
                 _http_response(
                     self,
                     status,
