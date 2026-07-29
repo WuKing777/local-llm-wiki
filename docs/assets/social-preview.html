@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=1280, initial-scale=1">
+  <title>Local LLM Wiki social preview</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      width: 1280px;
+      height: 640px;
+      margin: 0;
+      overflow: hidden;
+    }
+
+    body {
+      font-family: "Segoe UI", Arial, sans-serif;
+      color: #f7faf9;
+      background: #111513;
+    }
+
+    .canvas {
+      position: relative;
+      width: 1280px;
+      height: 640px;
+      padding: 64px 72px 54px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      grid-template-rows: auto 1fr auto;
+      column-gap: 70px;
+      border: 1px solid #2b3530;
+    }
+
+    .brand {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .brand-mark {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      color: #0e1915;
+      background: #35d49a;
+      font-size: 24px;
+      font-weight: 700;
+    }
+
+    .message {
+      align-self: center;
+      padding-bottom: 12px;
+    }
+
+    h1 {
+      max-width: 710px;
+      margin: 0;
+      font-size: 62px;
+      line-height: 1.08;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .supporting {
+      margin: 24px 0 0;
+      color: #bdc9c3;
+      font-size: 28px;
+      line-height: 1.35;
+    }
+
+    .flow {
+      align-self: center;
+      display: grid;
+      gap: 13px;
+    }
+
+    .node {
+      min-height: 74px;
+      padding: 16px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border: 1px solid #3c4b44;
+      background: #181e1b;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .node .index {
+      color: #89968f;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .node.sources {
+      border-left: 7px solid #f3c969;
+    }
+
+    .node.gate {
+      border-left: 7px solid #35d49a;
+      background: #17251f;
+    }
+
+    .node.wiki {
+      border-left: 7px solid #73a7ff;
+    }
+
+    .arrow {
+      height: 18px;
+      display: grid;
+      place-items: center;
+      color: #7d8a84;
+      font-size: 22px;
+    }
+
+    .trust {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      padding-top: 23px;
+      border-top: 1px solid #2b3530;
+      color: #b8c4be;
+      font-size: 19px;
+      font-weight: 600;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .trust-dot {
+      width: 8px;
+      height: 8px;
+      background: #35d49a;
+    }
+
+    .trust-item:nth-child(2) .trust-dot {
+      background: #f3c969;
+    }
+
+    .trust-item:nth-child(3) .trust-dot {
+      background: #73a7ff;
+    }
+  </style>
+</head>
+<body>
+  <main class="canvas" aria-label="Local LLM Wiki social preview">
+    <header class="brand">
+      <span class="brand-mark" aria-hidden="true">L</span>
+      <span>Local LLM Wiki</span>
+    </header>
+
+    <section class="message">
+      <h1>A personal exobrain you can trust.</h1>
+      <p class="supporting">AI drafts. Local evidence decides.</p>
+    </section>
+
+    <section class="flow" aria-label="Evidence publishing flow">
+      <div class="node sources"><span>Sources</span><span class="index">01</span></div>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <div class="node gate"><span>Evidence gate</span><span class="index">02</span></div>
+      <div class="arrow" aria-hidden="true">↓</div>
+      <div class="node wiki"><span>Stable wiki</span><span class="index">03</span></div>
+    </section>
+
+    <footer class="trust">
+      <span class="trust-item"><span class="trust-dot"></span>Local-first</span>
+      <span class="trust-item"><span class="trust-dot"></span>Evidence-gated</span>
+      <span class="trust-item"><span class="trust-dot"></span>Plain files</span>
+    </footer>
+  </main>
+</body>
+</html>
