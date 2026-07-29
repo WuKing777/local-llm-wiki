@@ -17,6 +17,8 @@ EXPECTED_PUBLIC_FILES = {
     "SECURITY.md",
     "pyproject.toml",
     ".github/workflows/ci.yml",
+    "docs/assets/social-preview.html",
+    "docs/assets/social-preview.png",
     "docs/product/open-source-release.md",
     "kb/cli.py",
     "tests/test_open_source_release.py",
